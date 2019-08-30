@@ -25,6 +25,18 @@ def sort_characters(text_str):
     return order
 
 
+def compute_char_classes(str_text, order_arr):
+    s_len = len(str_text)
+    res_class = [None for i in range(s_len)]
+    res_class[order_arr[0]] = 0
+    for i in range(1, s_len):
+        if str_text[order_arr[i]] != str_text[order_arr[i-1]]:
+            res_class[order_arr[i]] = res_class[order_arr[i-1]] + 1
+        else:
+            res_class[order_arr[i]] = res_class[order_arr[i-1]]
+    return res_class
+
+
 def build_suffix_array(text):
     """
   Build suffix array of the string text and
