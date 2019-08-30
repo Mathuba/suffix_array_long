@@ -81,3 +81,27 @@ def test_update_classes():
     assert new_cls == [3, 4, 3, 4, 2, 1, 0]
 
 
+def test_build_suffix_array_one():
+    text = "AAA$"
+    suf_arr = suffix_array_long.build_suffix_array(text)
+    assert suf_arr == [3, 2, 1, 0]
+
+
+def test_build_suffix_array_two():
+    text = "GAC$"
+    suf_arr = suffix_array_long.build_suffix_array(text)
+    assert suf_arr == [3, 1, 2, 0]
+
+
+def test_build_suffix_array_three():
+    text = "GAGAGAGA$"
+    suf_arr = suffix_array_long.build_suffix_array(text)
+    assert suf_arr == [8, 7, 5, 3, 1, 6, 4, 2, 0]
+
+
+def test_build_suffix_array_four():
+    text = "AACGATAGCGGTAGA$"
+    suf_arr = suffix_array_long.build_suffix_array(text)
+    assert suf_arr == [15, 14, 0, 1, 12, 6, 4, 2, 8, 13, 3, 7, 9, 10, 11, 5]
+
+

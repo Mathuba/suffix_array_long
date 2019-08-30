@@ -78,9 +78,15 @@ def build_suffix_array(text):
   in text where the i-th lexicographically smallest
   suffix of text starts.
   """
-    result = []
-    # Implement this function yourself
-    return result
+    order = sort_characters(text)
+    txt_len = len(text)
+    cls = compute_char_classes(text, order)
+    length = 1
+    while length < txt_len:
+        order = sort_doubled(text, length, order, cls)
+        cls = update_classes(order, cls, length)
+        length *= 2
+    return order
 
 
 if __name__ == '__main__':
