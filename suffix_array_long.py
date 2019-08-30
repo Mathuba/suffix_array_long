@@ -37,6 +37,39 @@ def compute_char_classes(str_text, order_arr):
     return res_class
 
 
+def sort_doubled(str_text, length, order, res_cls):
+    len_text = len(str_text)
+    count = [0 for i in range(len_text)]
+    new_order = [None for i in range(len_text)]
+    for i in range(len_text):
+        count[res_cls[i]] += 1
+    for j in range(1, len_text):
+        count[j] += count[j - 1]
+    for ind in range(len_text - 1, -1, -1):
+        start = (order[ind] - length + len_text) % len_text
+        cl = res_cls[start]
+        count[cl] -= 1
+        new_order[count[cl]] = start
+    return new_order
+
+
+def update_classes(new_order, cls, length):
+    len_no = len(new_order)
+    new_cls = [0 for i in range(len_no)]
+    new_cls[new_order[0]] = 0
+
+    for i in range(1, len_no):
+        cur = new_order[i]
+        prev = new_order[i - 1]
+        mid = (cur + length)
+        mid_prev = (prev + length) % len_no
+        if cls[cur] != cls[prev] or cls[mid] != cls[mid_prev]:
+            new_cls[cur] = new_cls[prev] + 1
+        else:
+            new_cls[cur] = new_cls[prev]
+    return new_cls
+
+
 def build_suffix_array(text):
     """
   Build suffix array of the string text and
